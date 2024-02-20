@@ -1,9 +1,9 @@
-
 interface ChatProps {
     content: string;
     sender: string;
     isMe: boolean;
     timestamp: string;
+    ppl: int;
 }
 export default function Chat(Props : ChatProps) {
     // get current time

@@ -28,7 +28,7 @@ function useWebSocket(){
                 sender: username,
                 content: message,
                 timestamp: new Date().toLocaleTimeString(),
-                type: 'CHAT'
+                type: 'CHAT',
             };
             webSocket.stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         }
@@ -36,7 +36,7 @@ function useWebSocket(){
 
     const onConnected = (stompClient : Stomp.Client, username : string) => {
         stompClient.subscribe('/topic/public', onMessageReceived);
-        stompClient.send("/app/chat.addUser", {}, JSON.stringify({ sender: username, type: 'JOIN', timestamp: new Date().toLocaleTimeString() }));
+        stompClient.send("/app/chat.addUser", {}, JSON.stringify({ sender: username, type: 'JOIN', timestamp: new Date().toLocaleTimeString()}));
         dispatch(setIsConnected(true))
         dispatch(setStompClient(stompClient))
     }

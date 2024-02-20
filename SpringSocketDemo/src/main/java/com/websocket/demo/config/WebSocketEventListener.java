@@ -2,6 +2,7 @@ package com.websocket.demo.config;
 
 import com.websocket.demo.chat.ChatMessage;
 import com.websocket.demo.chat.MessageType;
+import com.websocket.demo.chat.chatController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -13,7 +14,6 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 @RequiredArgsConstructor
 public class WebSocketEventListener {
     private final SimpMessageSendingOperations messageSendingOperations;
-
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
@@ -23,7 +23,8 @@ public class WebSocketEventListener {
                     .type(MessageType.LEAVE)
                     .sender(username)
                     .build();
-
+            ChatMessage.counter--;
+            chatMessage.setPpl(ChatMessage.counter);
             messageSendingOperations.convertAndSend("/topic/public", chatMessage);
         }
     }

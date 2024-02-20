@@ -4,6 +4,7 @@ interface JoinLeaveMessageProps {
     sender: string;
     timestamp: string;
     messageType: messageType;
+        ppl: int;
 }
 export default function JoinLeaveMessage(Props : JoinLeaveMessageProps) {
     return (
